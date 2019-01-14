@@ -1,11 +1,9 @@
 pipeline {
-    agent  none
+    agent none
     stages {
         stage('maven') {
             agent {
-                docker {
-                    image 'maven:3.3.3'
-                }
+                docker { image 'maven:3.3.3' }
             }
 
             steps {
@@ -14,15 +12,15 @@ pipeline {
             }
         }
 
-        stage('build') {
+        stage('npm') {
             agent { docker { image 'node:6.3' } }
             steps {
                 sh 'npm --version'
+                sh 'node --version'
             }
 
         }
-        agent { docker { image 'python:3.5.1' } }
-        stage('build') {
+        stage('python') {
             agent { docker { image 'python:3.5.1' } }
             steps {
                 sh 'python --version'
