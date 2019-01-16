@@ -6,7 +6,7 @@ pipeline {
             parallel {
                 stage('maven') {
                     agent {
-                        docker { image 'maven:3.3.3' }
+                        docker { image 'maven' }
                     }
 
                     steps {
@@ -16,7 +16,7 @@ pipeline {
                 }
 
                 stage('npm') {
-                    agent { docker { image 'node:6.3' } }
+                    agent { docker { image 'node' } }
                     steps {
                         sh 'npm --version'
                         sh 'node --version'
@@ -24,9 +24,16 @@ pipeline {
 
                 }
                 stage('python') {
-                    agent { docker { image 'python:3.5.1' } }
+                    agent { docker { image 'python' } }
                     steps {
                         sh 'python --version'
+                    }
+                }
+                stage('gradle') {
+                    agent { docker { image 'gradle' } }
+                    steps {
+                        sh 'gradle --version'
+                        sh 'java -version'
                     }
                 }
             }
